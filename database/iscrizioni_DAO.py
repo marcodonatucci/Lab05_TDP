@@ -1,21 +1,20 @@
-# Add whatever it is needed to interface with the DB Table corso
 import mysql.connector
 from database.DB_connect import get_connection
-from model.studente import Studente
+from model.iscrizione import Iscrizione
 
 
-def getStudenti():
+def getIscrizioni():
     cnx = get_connection()
     cursor = cnx.cursor(dictionary=True)
 
-    query = "select * from studente s"
+    query = "select * from iscrizione i"
 
     cursor.execute(query)
 
     result = []
 
     for row in cursor:
-        result.append(Studente(row["matricola"], row["cognome"], row["nome"], row["CDS"]))
+        result.append(Iscrizione(row["matricola"], row["codins"]))
 
     cursor.close()
     cnx.close()

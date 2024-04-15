@@ -19,3 +19,9 @@ class Model:
             if str(codice) == str(corso.codice):
                 return corso
 
+    def iscrivi(self, matricola, codice):
+        iscrizione = iscrizioni_DAO.setIscrizione(matricola, codice)
+        self.iscrizioni = iscrizioni_DAO.getIscrizioni()
+        if iscrizione:
+            return (f"studente {self.searchStudente(matricola).nome} {self.searchStudente(matricola).cognome} iscritto "
+                    f"al corso {self.searchCorso(codice).nome}")

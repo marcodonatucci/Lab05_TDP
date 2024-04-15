@@ -19,3 +19,15 @@ def getIscrizioni():
     cursor.close()
     cnx.close()
     return result
+
+
+def setIscrizione(matricola, codice):
+    cnx = get_connection()
+    cursor = cnx.cursor()
+    query = """insert into iscrizione (matricola, codins)
+values (%s, %s)"""
+    cursor.execute(query, (int(matricola), str(codice)))
+    cnx.commit()
+    cursor.close()
+    cnx.close()
+    return True

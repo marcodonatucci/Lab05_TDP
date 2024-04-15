@@ -60,4 +60,24 @@ class Controller:
         self._view.update_page()
 
     def handle_iscrivi(self, e):
-        pass
+        self._view.txt_name.value = ""
+        self._view.txt_surname.value = ""
+        self._view.txt_result.clean()
+        matricola = self._view.txt_matricola.value
+        if matricola is None or matricola == "":
+            self._view.create_alert("Inserire la matricola")
+            return
+        studente = self._model.searchStudente(matricola)
+        if studente is None:
+            self._view.create_alert("Studente inesistente")
+            return
+        corso = self._view.ddCorsi.value
+        if corso is None or corso == "":
+            self._view.create_alert("Selezionare un corso")
+            return
+        self._view.txt_name.value = studente.nome
+        self._view.txt_surname.value = studente.cognome
+        self._view.update_page()
+        iscrizione = self._model.iscrivi(matricola, corso)
+        self._view.txt_result.controls.append(ft.Text(iscrizione))
+        self._view.update_page()
